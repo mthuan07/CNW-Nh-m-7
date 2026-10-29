@@ -9,8 +9,11 @@
         private $finalAmount;
         private $pointsEarned;
         private $invoiceDate;
+        private $phone;
+        private $inventoryIds;
+        private $quantities;
 
-        public function __construct($id,$invoiceCode,$customerId,$totalAmount,$pointsUsed,$discount,$finalAmount,$pointsEarned,$invoiceDate)
+        public function __construct($id,$invoiceCode,$customerId,$totalAmount,$pointsUsed,$discount,$finalAmount,$pointsEarned,$invoiceDate,$phone = null,$inventoryIds = [],$quantities = [])
         {
             $this->id = $id;
             $this->invoiceCode = $invoiceCode;
@@ -21,6 +24,9 @@
             $this->finalAmount = $finalAmount;
             $this->pointsEarned = $pointsEarned;
             $this->invoiceDate = $invoiceDate;
+            $this->phone = $phone;
+            $this->inventoryIds = $inventoryIds;
+            $this->quantities = $quantities;
         }
 
         public function getId(){ return $this->id; }
@@ -32,5 +38,8 @@
         public function getFinalAmount(){ return $this->finalAmount; }
         public function getPointsEarned(){ return $this->pointsEarned; }
         public function getInvoiceDate(){ return $this->invoiceDate; }
+        public function getPhone(){ return $this->phone; }
+        public function getInventoryIds(){ return $this->inventoryIds; }
+        public function getQuantities(){ return $this->quantities; }
     };
 ?>

@@ -1,45 +1,44 @@
 <?php include APP_ROOT.'/app/views/layouts/header.php'; ?>
+    <div class="container mt-5">
         <h3 class="text-center text-uppercase text-success mt-3 mb-3">Danh sách hóa đơn</h3>
         <a href="?controller=addInvoice" class="btn btn-success">Thêm hóa đơn</a>
-        <a href="?controller=home" class="btn btn-secondary">Trang chủ</a>
+        <?php $invoiceService = new InvoiceService(); ?>
         <table class="table table-bordered table-striped mt-3">
             <thead>
                 <tr>
                     <th>Mã hóa đơn</th>
-                    <th>Ngày</th>
+                    <th>Ngày lập</th>
                     <th>Sản phẩm</th>
                     <th>Khách hàng</th>
                     <th>Tổng tiền</th>
                     <th>Giảm giá</th>
-                    <th>Thành tiền</th>
+                    <th>Thực trả</th>
                     <th>Thao tác</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach($invoices as $invoice){ ?>
                     <tr>
-                        <td><?= htmlspecialchars($invoice->getInvoiceCode(),ENT_QUOTES,'UTF-8'); ?></td>
-                        <td><?= htmlspecialchars($invoice->getInvoiceDate(),ENT_QUOTES,'UTF-8'); ?></td>
-                        <td><?= htmlspecialchars($invoiceService->getInvoiceProductNames($invoice->getId()),ENT_QUOTES,'UTF-8'); ?></td>
+                        <td><?= $invoice->getInvoiceCode(); ?></td>
+                        <td><?= $invoice->getInvoiceDate(); ?></td>
+                        <td><?= $invoiceService->getInvoiceProductNames($invoice->getId()); ?></td>
                         <td>
-                            <?php
-                                $customer = $invoice->getCustomerId() != null ? $invoiceService->getCustomerById($invoice->getCustomerId()) : null;
-                                echo $customer != null ? htmlspecialchars($customer->getFullName(),ENT_QUOTES,'UTF-8') : '';
-                            ?>
+                            <?php if($invoice->getCustomerId() != null){ ?>
+                                <?php $customer = $invoiceService->getCustomerById($invoice->getCustomerId()); ?>
+                                <?= $customer->getFullName(); ?>
+                            <?php } ?>
                         </td>
-                        <td><?= number_format((float)$invoice->getTotalAmount(),0,',','.'); ?> đ</td>
-                        <td><?= number_format((float)$invoice->getDiscount(),0,',','.'); ?> đ</td>
-                        <td><?= number_format((float)$invoice->getFinalAmount(),0,',','.'); ?> đ</td>
-                        <td class="text-nowrap">
-                            <a class="btn btn-sm btn-info" href="?controller=detailInvoice&id=<?= (int)$invoice->getId(); ?>">Chi tiết</a>
-                            <a class="btn btn-sm btn-warning" href="?controller=editInvoice&id=<?= (int)$invoice->getId(); ?>">Sửa</a>
-                            <a class="btn btn-sm btn-danger" href="?controller=deleteInvoice&id=<?= (int)$invoice->getId(); ?>">Xóa</a>
+                        <td><?= $invoice->getTotalAmount(); ?></td>
+                        <td><?= $invoice->getDiscount(); ?></td>
+                        <td><?= $invoice->getFinalAmount(); ?></td>
+                        <td>
+                            <a href="?controller=detailInvoice&id=<?= $invoice->getId(); ?>">Chi tiết</a>
+                            <a href="?controller=editInvoice&id=<?= $invoice->getId(); ?>">Sửa</a>
+                            <a href="?controller=deleteInvoice&id=<?= $invoice->getId(); ?>">Xóa</a>
                         </td>
                     </tr>
                 <?php } ?>
-                <?php if(count($invoices) == 0){ ?>
-                    <tr><td colspan="8" class="text-center">Chưa có hóa đơn.</td></tr>
-                <?php } ?>
             </tbody>
         </table>
+    </div>
 <?php include APP_ROOT.'/app/views/layouts/footer.php'; ?>

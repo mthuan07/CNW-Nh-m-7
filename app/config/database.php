@@ -2,5 +2,5 @@
     define('DB_HOST','localhost');
     define('DB_USER','root');
     define('DB_PASS','');
-    define('DB_NAME','quan_ly_san_pham');
+    define('DB_NAME','grocery');
 ?>
