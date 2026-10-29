@@ -1,0 +1,1 @@
+<?php require_once __DIR__.'/../models/GoodsReceipt.php'; class GoodsReceiptController extends Controller { public function index() { $receipts = GoodsReceipt::getAll(); $this->view('goods_receipt/index', ['receipts' => $receipts]); } }

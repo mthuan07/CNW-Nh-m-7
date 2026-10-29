@@ -1,0 +1,1 @@
+<?php class GoodsReceipt { public static function getAll() { $db = Database::getConnection(); $res = $db->query("SELECT * FROM goods_receipts ORDER BY id DESC"); $r=[]; while($row=$res->fetch_assoc()){$r[]=$row;} return $r; } }

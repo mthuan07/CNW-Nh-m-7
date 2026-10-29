@@ -1,0 +1,1 @@
+<?php require_once __DIR__.'/../models/Invoice.php'; class InvoiceController extends Controller { public function index() { $invoices = Invoice::getAll(); $this->view('invoice/index', ['invoices' => $invoices]); } }

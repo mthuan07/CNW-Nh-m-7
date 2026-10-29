@@ -1,0 +1,1 @@
+<?php class Invoice { public static function getAll() { $db = Database::getConnection(); $res = $db->query("SELECT * FROM invoices ORDER BY id DESC"); $r=[]; while($row=$res->fetch_assoc()){$r[]=$row;} return $r; } }
