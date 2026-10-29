@@ -1,20 +1,32 @@
 <?php
-    require_once('../app/config/config.php');
-    require_once APP_ROOT.'/app/libs/DbConnection.php';
-    require_once APP_ROOT.'/app/services/ProductService.php';
+    require_once __DIR__.'/../app/config/config.php';
+    require_once APP_ROOT.'/app/libs/Database.php';
     require_once APP_ROOT.'/app/controllers/HomeController.php';
-    require_once APP_ROOT.'/app/controllers/ProductController.php';
+    require_once APP_ROOT.'/app/controllers/InvoiceController.php';
 
     $controller = isset($_GET['controller']) ? $_GET['controller'] : 'home';
+    $id = isset($_GET['id']) ? $_GET['id'] : null;
 
     $homeController = new HomeController();
-    $productController = new ProductController();
+    $invoiceController = new InvoiceController();
 
     if($controller == 'home'){
         $homeController->index();
+    }else if($controller == 'invoice'){
+        $invoiceController->index();
     }else if(isset($_POST['btn_create'])){
-        $productController->store();
-    }else if($controller == 'addProduct'){
-        $productController->add();
+        $invoiceController->store();
+    }else if($controller == 'addInvoice'){
+        $invoiceController->add();
+    }else if(isset($_POST['btn_update'])){
+        $invoiceController->update($id);
+    }else if($controller == 'editInvoice'){
+        $invoiceController->edit($id);
+    }else if($controller == 'deleteInvoice'){
+        $invoiceController->delete($id);
+    }else if($controller == 'detailInvoice'){
+        $invoiceController->detail($id);
+    }else{
+        echo 'Không tìm thấy hành động phù hợp.';
     }
 ?>
